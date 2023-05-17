@@ -9,11 +9,12 @@ Includes:
 - Health check etc.
 
 ## Usage
+
 ```yaml
-version: "3"
 services:
   warproxy:
-    build: .
+    container_name: warproxy
+    image: ghcr.io/hua-ying/warproxy:latest
     network_mode: bridge
     restart: always
     environment:

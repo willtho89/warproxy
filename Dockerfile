@@ -35,8 +35,16 @@ RUN chmod a+x \
 ## RELEASE
 
 FROM base
+LABEL maintainer="hua-ying"
+LABEL org.opencontainers.image.source https://github.com/hua-ying/warproxy
 
 RUN \
+    apk add --no-cache \
+        py3-pycryptodome \
+        py3-requests \
+        py3-toml \
+        py3-uvloop \
+        && \
     apk add --no-cache \
         grep \
         moreutils \
