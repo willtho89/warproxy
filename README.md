@@ -36,11 +36,15 @@ When you restart container, it will update your account info and re-generate con
 | ENV  | Description  | Default  |
 |---|---|---|
 | ```PUID``` / ```PGID```  | uid and gid for running an app  | ```911``` / ```911```  |
-| ```TZ```  | timezone  | ```Asia/Seoul```  |
+| ```TZ```  | timezone  | ```Asia/Shanghai```  |
 | ```PROXY_ENABLED```  | set ```false``` to disable proxy | ```true``` |
 | ```PROXY_PORT```  | to run proxy in a different port  | ```1080``` |
 | ```PROXY_VERBOSE```  | simple access logging  |  |
 | ```PROXY_AUTHTIME```  | re-auth time interval for same ip (second in string format)  | ```0``` |
+| ```USERNAME```  | username of socks5 auth  |  |
+| ```PASSWORD```  | password of socks5 auth  |  |
+| ```DNS```  | dns options of wire-proxy  | ```1.1.1.1``` |
+| ```ENDPOINT```  | endpoint of cloudflare | ```engage.cloudflareclient.com``` |
 | ```WARP_ENABLED```  | set ```false``` to disable cloudflare WARP  | ```true``` |
 | ```WARP_PLUS```  | set ```true``` to enable auto WARP+ quota script  | ```false``` |
 | ```WARP_PLUS_VERBOSE```  | set ```true``` to run auto WARP+ quota script in verbose mode   | ```false```  |

@@ -23,6 +23,12 @@ if [ "${WARP_ENABLED}" = "true" ]; then
     if [ -n "$DNS" ]; then
       sed -i "s/1.1.1.1/${DNS}/g" /config/wireproxy.conf
     fi
+    if [ -n "$USERNAME" ]; then
+      echo -e "\nUsername = ${USERNAME}" >> /config/wireproxy.conf
+    fi
+    if [ -n "$PASSWORD" ]; then
+      echo -e "\nPassword = ${PASSWORD}" >> /config/wireproxy.conf
+    fi
   fi
 
   [ "${WARP_PLUS}" = "true" ] || \
