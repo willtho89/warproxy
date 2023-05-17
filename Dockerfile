@@ -1,29 +1,23 @@
 ARG ALPINE_VER=3.17
 
-## BUILD WIREPROXY
-FROM golang:1.19-alpine${ALPINE_VER} AS builder
-RUN go install github.com/octeep/wireproxy/cmd/wireproxy@latest
+#--------------#
 
-## ALPINE BASE WITH PYTHON3
+FROM golang:1.19-alpine${ALPINE_VER} AS builder
+
+RUN go install github.com/octeep/wireproxy/cmd/wireproxy@latest
+RUN curl -fsSL https://git.io/wgcf.sh | bash
+
+#--------------#
 
 FROM ghcr.io/linuxserver/baseimage-alpine:${ALPINE_VER} AS base
 
-RUN \
-    apk add --no-cache python3 && \
-    if [ ! -e /usr/bin/python ]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    pip3 install --no-cache --upgrade pip setuptools wheel && \
-    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip; fi && \
-    curl -fsSL https://git.io/wgcf.sh | bash && \
-    rm -rf \
-        /tmp/* \
-        /root/.cache
-
+#--------------#
 
 FROM base AS collector
 
 COPY --from=builder /go/bin/wireproxy /bar/usr/local/bin/wireproxy
+COPY --from=builder /usr/local/bin/wgcf /bar/usr/local/bin/wgcf
+
 COPY root/ /bar/
 
 RUN chmod a+x \
@@ -32,36 +26,35 @@ RUN chmod a+x \
         /bar/etc/s6-overlay/s6-rc.d/*/finish \
         /bar/etc/s6-overlay/s6-rc.d/*/data/*
 
-## RELEASE
+#--------------#
 
-FROM base
+FROM base As publisher
+
 LABEL maintainer="hua-ying"
 LABEL org.opencontainers.image.source https://github.com/hua-ying/warproxy
 
+COPY --from=collector /bar/ /
+
+RUN apk add --no-cache grep sed python3
+
 RUN \
-    apk add --no-cache \
-        py3-pycryptodome \
-        py3-requests \
-        py3-toml \
-        py3-uvloop \
-        && \
-    apk add --no-cache \
-        grep \
-        moreutils \
-        sed \
-        && \
+    if [ ! -e /usr/bin/python ]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
+    python3 -m ensurepip && \
+    rm -r /usr/lib/python*/ensurepip && \
+    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip; fi
+
+RUN pip3 install --no-cache --upgrade pip requests toml
+
+RUN \
     rm -rf \
         /tmp/* \
         /root/.cache
-
-COPY --from=collector /bar/ /
 
 ENV \
     S6_BEHAVIOUR_IF_STAGE2_FAILS=2 \
     PYTHONUNBUFFERED=1 \
     TZ=Asia/Shanghai \
     WARP_ENABLED=true \
-    PROXY_ENABLED=true \
     PROXY_PORT=1080
 
 EXPOSE ${PROXY_PORT}

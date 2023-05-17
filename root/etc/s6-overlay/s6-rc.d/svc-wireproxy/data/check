@@ -1,6 +1,13 @@
 #!/usr/bin/with-contenv bash
 
 WARP_MODE="$(curl -ks https://www.cloudflare.com/cdn-cgi/trace -x socks5://127.0.0.1:${PROXY_PORT} | grep warp | sed 's/warp=//g')"
+
+if [[ -n "${USERNAME:-}" ]] && [[ -n "${PASSWORD:-}" ]]; then
+    WARP_MODE="$(curl -ks https://www.cloudflare.com/cdn-cgi/trace -x socks5://${USERNAME}:${PASSWORD}@127.0.0.1:${PROXY_PORT} | grep warp | sed 's/warp=//g')"
+else
+    WARP_MODE="$(curl -ks https://www.cloudflare.com/cdn-cgi/trace -x socks5://127.0.0.1:${PROXY_PORT} | grep warp | sed 's/warp=//g')"
+fi
+
 [ -n "${WARP_MODE:-}" ] || exit 1
 printf $WARP_MODE > /var/run/s6/container_environment/WARP_MODE
 

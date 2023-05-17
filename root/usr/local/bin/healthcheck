@@ -3,16 +3,9 @@
 
 TEST_URL="https://google.com"
 
-if [ "${PROXY_ENABLED}" = "true" ]; then
-
-    if [[ -n "${PROXY_USER:-}" ]] && [[ -n "${PROXY_PASS:-}" ]]; then
-        PROXY_URL="http://${PROXY_USER}:${PROXY_PASS}@127.0.0.1:${PROXY_PORT}"
-    else
-        PROXY_URL="http://127.0.0.1:${PROXY_PORT}"
-    fi
-
-    /usr/bin/curl --silent --fail -o /dev/null --proxy "${PROXY_URL}" "${TEST_URL}" || exit 1
-elif [ "${WARP_ENABLED}" == "true" ]; then
+if [[ -n "${USERNAME:-}" ]] && [[ -n "${PASSWORD:-}" ]]; then
+    /usr/bin/curl --silent --fail -o /dev/null --proxy "socks5://${USERNAME}:${PASSWORD}@127.0.0.1:${PROXY_PORT}" "${TEST_URL}" || exit 1
+else
     /usr/bin/curl --silent --fail -o /dev/null --proxy "socks5://127.0.0.1:${PROXY_PORT}" "${TEST_URL}" || exit 1
 fi
 
