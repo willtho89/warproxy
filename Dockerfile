@@ -2,21 +2,26 @@ ARG ALPINE_VER=3.17
 
 #--------------#
 
-FROM golang:1.19-alpine${ALPINE_VER} AS builder
-
-RUN go install github.com/octeep/wireproxy/cmd/wireproxy@latest
-RUN curl -fsSL https://git.io/wgcf.sh | bash
+FROM ghcr.io/linuxserver/baseimage-alpine:${ALPINE_VER} AS base
 
 #--------------#
 
-FROM ghcr.io/linuxserver/baseimage-alpine:${ALPINE_VER} AS base
+FROM golang:1.19-alpine${ALPINE_VER} AS wireproxy-builder
+
+RUN go install github.com/octeep/wireproxy/cmd/wireproxy@latest
+
+#--------------#
+
+FROM base AS wgcf-builder
+
+RUN curl -fsSL https://git.io/wgcf.sh | bash
 
 #--------------#
 
 FROM base AS collector
 
-COPY --from=builder /go/bin/wireproxy /bar/usr/local/bin/wireproxy
-COPY --from=builder /usr/local/bin/wgcf /bar/usr/local/bin/wgcf
+COPY --from=wireproxy-builder /go/bin/wireproxy /bar/usr/local/bin/wireproxy
+COPY --from=wgcf-builder /usr/local/bin/wgcf /bar/usr/local/bin/wgcf
 
 COPY root/ /bar/
 
