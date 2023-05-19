@@ -36,7 +36,7 @@ RUN chmod a+x \
 FROM base As publisher
 
 LABEL maintainer="hua-ying"
-LABEL org.opencontainers.image.source https://github.com/hua-ying/warproxy
+LABEL org.opencontainers.image.source=https://github.com/hua-ying/warproxy
 
 COPY --from=collector /bar/ /
 
@@ -46,11 +46,8 @@ RUN \
     if [ ! -e /usr/bin/python ]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
-    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip; fi
-
-RUN pip3 install --no-cache --upgrade pip requests toml
-
-RUN \
+    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip; fi && \
+    pip3 install --no-cache --upgrade pip requests toml && \
     rm -rf \
         /tmp/* \
         /root/.cache
@@ -62,11 +59,10 @@ ENV \
     WARP_ENABLED=true \
     PROXY_PORT=1080
 
-EXPOSE ${PROXY_PORT}
 VOLUME /config
 WORKDIR /config
 
-HEALTHCHECK --interval=5m --timeout=30s --start-period=2m --retries=3 \
+HEALTHCHECK --interval=5m --timeout=30s --retries=3 \
     CMD /usr/local/bin/healthcheck
 
 ENTRYPOINT ["/init"]
