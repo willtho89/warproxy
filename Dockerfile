@@ -47,7 +47,7 @@ RUN \
     python3 -m ensurepip && \
     rm -r /usr/lib/python*/ensurepip && \
     if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip; fi && \
-    pip3 install --no-cache --upgrade pip requests toml && \
+    pip3 install --no-cache --upgrade requests toml && \
     rm -rf \
         /tmp/* \
         /root/.cache
