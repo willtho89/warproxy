@@ -1,6 +1,6 @@
 services:
   warproxy:
-    image: ghcr.io/hua-ying/warproxy:latest
+    image: ghcr.io/kingcc/warproxy:latest
     restart: always
     environment:
       - WARP_PLUS=true

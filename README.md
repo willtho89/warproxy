@@ -13,9 +13,7 @@ Includes:
 ```yaml
 services:
   warproxy:
-    container_name: warproxy
-    image: ghcr.io/hua-ying/warproxy:latest
-    network_mode: bridge
+    image: ghcr.io/kingcc/warproxy:latest
     restart: always
     environment:
       - WARP_PLUS=true
