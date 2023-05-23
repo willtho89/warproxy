@@ -1,8 +1,6 @@
 services:
   warproxy:
-    container_name: warproxy
     image: ghcr.io/hua-ying/warproxy:latest
-    network_mode: bridge
     restart: always
     environment:
       - WARP_PLUS=true
