@@ -17,8 +17,6 @@ services:
     restart: always
     environment:
       - WARP_PLUS=true
-      - ENDPOINT=162.159.192.12
-      - DNS=223.5.5.5
     ports:
       - 1080:1080
 ```
