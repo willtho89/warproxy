@@ -4,9 +4,9 @@
 TEST_URL="https://google.com"
 
 if [[ -n "${USERNAME:-}" ]] && [[ -n "${PASSWORD:-}" ]]; then
-    /usr/bin/curl --silent --fail -o /dev/null --proxy "socks5://${USERNAME}:${PASSWORD}@127.0.0.1:${PROXY_PORT}" "${TEST_URL}" || exit 1
+    /usr/bin/curl --silent --fail -o /dev/null --proxy "socks5://${USERNAME}:${PASSWORD}@127.0.0.1:${SOCKS5_PORT}" "${TEST_URL}" || exit 1
 else
-    /usr/bin/curl --silent --fail -o /dev/null --proxy "socks5://127.0.0.1:${PROXY_PORT}" "${TEST_URL}" || exit 1
+    /usr/bin/curl --silent --fail -o /dev/null --proxy "socks5://127.0.0.1:${SOCKS5_PORT}" "${TEST_URL}" || exit 1
 fi
 
 exit 0

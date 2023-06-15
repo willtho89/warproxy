@@ -57,7 +57,7 @@ ENV \
     PYTHONUNBUFFERED=1 \
     TZ=Asia/Shanghai \
     WARP_ENABLED=true \
-    PROXY_PORT=1080
+    SOCKS5_PORT=1080
 
 VOLUME /config
 WORKDIR /config

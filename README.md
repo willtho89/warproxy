@@ -33,9 +33,10 @@ When you restart container, it will update your account info and re-generate con
 |---|---|---|
 | ```PUID``` / ```PGID```  | uid and gid for running an app  | ```911``` / ```911```  |
 | ```TZ```  | timezone  | ```Asia/Shanghai```  |
-| ```PROXY_PORT```  | to run proxy in a different port  | ```1080``` |
-| ```USERNAME```  | username of socks5 auth  |  |
-| ```PASSWORD```  | password of socks5 auth  |  |
+| ```SOCKS5_PORT```  | to run socks5 proxy in a different port  | ```1080``` |
+| ```USERNAME```  | username of socks5 auth  | None |
+| ```PASSWORD```  | password of socks5 auth  | None |
+| ```HTTP_PORT```  | to run http proxy in a different port  | None |
 | ```DNS```  | dns options of wire-proxy  | ```1.1.1.1``` |
 | ```ENDPOINT```  | endpoint of cloudflare | ```engage.cloudflareclient.com``` |
 | ```WARP_PLUS```  | set ```true``` to enable auto WARP+ quota script  | ```false``` |

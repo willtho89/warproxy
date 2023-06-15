@@ -1,9 +1,9 @@
 #!/usr/bin/with-contenv bash
 
 if [[ -n "${USERNAME:-}" ]] && [[ -n "${PASSWORD:-}" ]]; then
-    WARP_MODE="$(curl -ks https://www.cloudflare.com/cdn-cgi/trace -x socks5://${USERNAME}:${PASSWORD}@127.0.0.1:${PROXY_PORT} | grep warp | sed 's/warp=//g')"
+    WARP_MODE="$(curl -ks https://www.cloudflare.com/cdn-cgi/trace -x socks5://${USERNAME}:${PASSWORD}@127.0.0.1:${SOCKS5_PORT} | grep warp | sed 's/warp=//g')"
 else
-    WARP_MODE="$(curl -ks https://www.cloudflare.com/cdn-cgi/trace -x socks5://127.0.0.1:${PROXY_PORT} | grep warp | sed 's/warp=//g')"
+    WARP_MODE="$(curl -ks https://www.cloudflare.com/cdn-cgi/trace -x socks5://127.0.0.1:${SOCKS5_PORT} | grep warp | sed 's/warp=//g')"
 fi
 
 [ -n "${WARP_MODE:-}" ] || exit 1
