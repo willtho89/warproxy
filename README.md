@@ -1,6 +1,6 @@
 # WARProxy
 
-Use Cloudflare WARP as your socks5 proxy server with one click.
+Use Cloudflare WARP as your socks5/http proxy server with one click.
 
 Includes:
 - WGCF: generate cf warp accounts and wireguard config automatically.
