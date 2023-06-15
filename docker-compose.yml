@@ -6,5 +6,7 @@ services:
       - WARP_PLUS=true
       - ENDPOINT=162.159.192.12
       - DNS=223.5.5.5
+      - HTTP_PORT=1081
     ports:
       - 1080:1080
+      - 1081:1081

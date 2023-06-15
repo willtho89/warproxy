@@ -10,9 +10,7 @@ fi
 printf $WARP_MODE > /var/run/s6/container_environment/WARP_MODE
 
 if [ "${WARP_MODE}" = "on" ] || [ "${WARP_MODE}" = "plus" ]; then
-    echo "$(date "+%4Y/%m/%d %H:%M:%S") [wproxy] Connection established: warp=$WARP_MODE"
     exit 0
 fi
 
-echo "$(date "+%4Y/%m/%d %H:%M:%S") [wproxy] Unknown connection: warp=$WARP_MODE"
 exit 1
