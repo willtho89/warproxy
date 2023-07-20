@@ -7,7 +7,7 @@ on:
       - 'main'
 
 env:
-  IMAGE_NAME: ghcr.io/${{ github.repository_owner }}/warproxy
+  IMAGE_NAME: ghcr.io/${{ github.repository }}
 
 jobs:
   buildx:
