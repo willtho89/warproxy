@@ -1,12 +1,35 @@
 services:
-  warproxy:
+  warproxy.server:
     image: ghcr.io/kingcc/warproxy:latest
+    depends_on:
+      - dns.server
     restart: always
     environment:
       - WARP_PLUS=true
       - ENDPOINT=162.159.192.12
-      - DNS=223.5.5.5
+      - DNS=172.16.0.3
       - HTTP_PORT=1081
+    networks:
+      warproxy.network:
+        ipv4_address: 172.16.0.2
     ports:
-      - 1080:1080
-      - 1081:1081
+      - 127.0.0.1:1080:1080
+      - 127.0.0.1:1081:1081
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+  dns.server:
+    image: dnomd343/cleardns:latest
+    restart: always
+    networks:
+      warproxy.network:
+        ipv4_address: 172.16.0.3
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+
+networks:
+  warproxy.network:
+    external: true
+    name: warproxy.network
