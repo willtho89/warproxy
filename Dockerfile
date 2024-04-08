@@ -40,15 +40,15 @@ LABEL org.opencontainers.image.source=https://github.com/kingcc/warproxy
 
 COPY --from=collector /bar/ /
 
-RUN apk add --no-cache grep sed python3
-
-RUN if [ ! -e /usr/bin/python ]; then ln -sf /usr/bin/python3 /usr/bin/python; fi 
-RUN    rm /usr/lib/python*/EXTERNALLY-MANAGED 
-RUN    python3 -m ensurepip 
-RUN    rm -r /usr/lib/python*/ensurepip 
-RUN    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip; fi 
-RUN    pip3 install --no-cache requests toml 
-RUN    rm -rf \
+RUN \
+    apk add --no-cache grep sed python3 && \
+    if [ ! -e /usr/bin/python ]; then ln -sf /usr/bin/python3 /usr/bin/python; fi  && \
+    rm /usr/lib/python*/EXTERNALLY-MANAGED  && \
+    python3 -m ensurepip  && \
+    rm -r /usr/lib/python*/ensurepip  && \
+    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip; fi  && \
+    pip3 install --no-cache requests toml  && \
+    rm -rf \
         /tmp/* \
         /root/.cache
 
