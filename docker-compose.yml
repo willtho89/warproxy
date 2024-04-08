@@ -22,6 +22,8 @@ services:
   dns.server:
     image: dnomd343/cleardns:latest
     restart: always
+    environment:
+      - VERBOSE=TRUE
     networks:
       warproxy.network:
         ipv4_address: 172.16.0.3

@@ -8,7 +8,7 @@ FROM ghcr.io/linuxserver/baseimage-alpine:${ALPINE_VER} AS base
 
 FROM golang:1.19-alpine${ALPINE_VER} AS wireproxy-builder
 
-RUN go install github.com/octeep/wireproxy/cmd/wireproxy@latest
+RUN go install github.com/pufferffish/wireproxy/cmd/wireproxy@latest
 
 #--------------#
 
