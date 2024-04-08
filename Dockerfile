@@ -1,4 +1,4 @@
-ARG ALPINE_VER=3.17
+ARG ALPINE_VER=3.19
 
 #--------------#
 
