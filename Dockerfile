@@ -1,4 +1,5 @@
 ARG ALPINE_VER=3.19
+ARG GOLANG_VER=1.22
 
 #--------------#
 
@@ -6,7 +7,7 @@ FROM ghcr.io/linuxserver/baseimage-alpine:${ALPINE_VER} AS base
 
 #--------------#
 
-FROM golang:1.22-alpine${ALPINE_VER} AS wireproxy-builder
+FROM golang:${GOLANG_VER}-alpine${ALPINE_VER} AS wireproxy-builder
 RUN go install github.com/pufferffish/wireproxy/cmd/wireproxy@latest
 
 #--------------#
@@ -41,13 +42,13 @@ COPY --from=collector /bar/ /
 
 RUN apk add --no-cache grep sed python3
 
-RUN \
-    if [ ! -e /usr/bin/python ]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
-    python3 -m ensurepip && \
-    rm -r /usr/lib/python*/ensurepip && \
-    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip; fi && \
-    pip3 install --no-cache requests toml && \
-    rm -rf \
+RUN if [ ! -e /usr/bin/python ]; then ln -sf /usr/bin/python3 /usr/bin/python; fi 
+RUN    rm /usr/lib/python*/EXTERNALLY-MANAGED 
+RUN    python3 -m ensurepip 
+RUN    rm -r /usr/lib/python*/ensurepip 
+RUN    if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip; fi 
+RUN    pip3 install --no-cache requests toml 
+RUN    rm -rf \
         /tmp/* \
         /root/.cache
 
