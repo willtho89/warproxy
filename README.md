@@ -10,13 +10,22 @@ Includes:
 
 ## Usage
 
+`docker`:
+
+```sh
+docker run --name warproxy \
+  --restart always \
+  -p 1080:1080 \
+  -d ghcr.io/kingcc/warproxy:latest
+```
+
+or `docker-compose`:
+
 ```yaml
 services:
   warproxy:
     image: ghcr.io/kingcc/warproxy:latest
     restart: always
-    environment:
-      - WARP_PLUS=true
     ports:
       - 1080:1080
 ```
@@ -37,10 +46,9 @@ When you restart container, it will update your account info and re-generate con
 | ```USERNAME```  | username of socks5 auth  | None |
 | ```PASSWORD```  | password of socks5 auth  | None |
 | ```HTTP_PORT```  | to run http proxy in a different port  | None |
-| ```DNS```  | dns options of wire-proxy  | ```1.1.1.1``` |
 | ```ENDPOINT```  | endpoint of cloudflare | ```engage.cloudflareclient.com``` |
 | ```WARP_PLUS```  | set ```true``` to enable auto WARP+ quota script  | ```false``` |
-| ```WARP_PLUS_VERBOSE```  | set ```true``` to run auto WARP+ quota script in verbose mode   | ```false```  |
+| ```VERBOSE```  | show verbose level logs   | ```false```  |
 
 
 ## Thanks

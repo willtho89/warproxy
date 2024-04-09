@@ -7,6 +7,10 @@ fi
 
 command="/usr/local/bin/wireproxy -c /config/wireproxy.conf"
 
+if [ "${VERBOSE}" = "true" ]; then
+    command="/usr/local/bin/wireproxy -s -c /config/wireproxy.conf"
+fi
+
 # echo "*** executing => $command"
 exec s6-notifyoncheck -d -n 300 -w 10000 \
     s6-setuidgid abc $command | \
