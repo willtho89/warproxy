@@ -14,7 +14,6 @@ Includes:
 
 ```sh
 docker run --name warproxy \
-  --restart always \
   -p 1080:1080 \
   -d ghcr.io/kingcc/warproxy:latest
 ```
