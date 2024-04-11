@@ -20,7 +20,9 @@ if [ "${WARP_ENABLED}" = "true" ]; then
     if [ -n "$ENDPOINT" ]; then
       sed -i "s/engage.cloudflareclient.com/${ENDPOINT}/g" /config/wireproxy.conf
     fi
-    sed -i "/^DNS/c\DNSForward = False" /config/wireproxy.conf
+    if [ -n "$DNS" ]; then
+      sed -i "s/^DNS.*/DNS = ${DNS}/" /config/wireproxy.conf
+    fi
 
     echo -e "\n[Socks5]\nBindAddress = 0.0.0.0:${SOCKS5_PORT}" >> /config/wireproxy.conf
     if [ -n "$USERNAME" ]; then
