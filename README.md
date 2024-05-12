@@ -1,6 +1,6 @@
 # WARProxy
 
-Use Cloudflare WARP as your socks5/http proxy server with onetap & container.
+Make Cloudflare WARP your SOCKS5/HTTP proxy server with a single command!
 
 Includes:
 - WGCF: generate cf warp accounts and wireguard config automatically.
@@ -29,11 +29,6 @@ services:
       - 1080:1080
 ```
 
-### To change license key
-If you have an existing Warp+ license key, edit `/config/wgcf-account.toml` and,  delete two files :  
-`/config/wgcf-profile.conf` and `/config/wireproxy.conf`  
-When you restart container, it will update your account info and re-generate conf files automatically.
-
 
 ## Environment variables
 
@@ -49,6 +44,11 @@ When you restart container, it will update your account info and re-generate con
 | ```DNS```  | remote dns options  | ```1.1.1.1``` |
 | ```WARP_PLUS```  | set ```true``` to enable auto WARP+ quota script  | ```false``` |
 | ```VERBOSE```  | show verbose level logs   | ```false```  |
+
+### To change license key
+If you have an existing Warp+ license key, edit `/config/wgcf-account.toml` and,  delete two files :  
+`/config/wgcf-profile.conf` and `/config/wireproxy.conf`  
+When you restart container, it will update your account info and re-generate conf files automatically.
 
 
 ## Thanks
