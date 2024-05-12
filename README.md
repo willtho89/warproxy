@@ -1,6 +1,7 @@
 # WARProxy
 
-Make Cloudflare WARP your SOCKS5/HTTP proxy server with a single command!
+Use a single command to turn `Cloudflare WARP` into your SOCKS5/HTTP proxy server! 
+The most minimal docker image includes all the features you might need!
 
 Includes:
 - WGCF: generate cf warp accounts and wireguard config automatically.
