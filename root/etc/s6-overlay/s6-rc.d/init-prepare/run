@@ -18,7 +18,7 @@ if [ "${WARP_ENABLED}" = "true" ]; then
     cp /config/wgcf-profile.conf /config/wireproxy.conf
 
     if [ -n "$ENDPOINT" ]; then
-      sed -i "s/engage.cloudflareclient.com/${ENDPOINT}/g" /config/wireproxy.conf
+      sed -i "s/engage.cloudflareclient.com:[0-9]+/${ENDPOINT}/g" /config/wireproxy.conf
     fi
     if [ -n "$DNS" ]; then
       sed -i "s/^DNS.*/DNS = ${DNS}/" /config/wireproxy.conf
