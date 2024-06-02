@@ -57,6 +57,7 @@ ENV \
     PYTHONUNBUFFERED=1 \
     TZ=Asia/Shanghai \
     WARP_ENABLED=true \
+    WARP_PLUS=true \
     SOCKS5_PORT=1080
 
 VOLUME /config
