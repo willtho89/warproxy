@@ -77,11 +77,9 @@ jobs:
       - name: Download SlimToolkit
         if: steps.cache-slim.outputs.cache-hit != 'true'
         run: |
-          wget https://downloads.dockerslim.com/releases/1.40.11/dist_linux.tar.gz
-          tar zxvf dist_linux.tar.gz
-          chmod +x ./dist_linux/docker-slim
+          curl -sL https://raw.githubusercontent.com/slimtoolkit/slim/master/scripts/install-slim.sh | sudo -E bash -
 
       - name: Minify
         run: |
-          ./dist_linux/docker-slim build --tag ${{ env.IMAGE_NAME }}:slim --dockerfile Dockerfile . && \
+          /usr/local/bin/slim build --tag ${{ env.IMAGE_NAME }}:slim --dockerfile Dockerfile . && \
           docker push ${{ env.IMAGE_NAME }}:slim
